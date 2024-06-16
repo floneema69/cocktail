@@ -1,0 +1,51 @@
+rrrimport { StatusBar } from 'expo-status-bar';
+import React, { useState, useEffect } from 'react';
+import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import axios from 'axios';
+
+export default function Detail({ route, navigation }) {
+    const { id } = route.params;
+    const [errorMsg, setErrorMsg] = useState(null);
+    const [cocktail, setCocktail] = useState(null);
+    useEffect(() => {
+        (async () => {
+            axios.get(`http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
+                .then(function (response) {
+                    console.log(response.data);
+                    setCocktail(response.data.drinks[0])
+                })
+                .catch((error) => {
+                    setErrorMsg('pas de data');
+                });
+        })();
+    }, []);
+    return (
+        <View style={styles.container}>
+            <Text>{cocktail && cocktail.strDrink}</Text>
+            <Image source={{ uri: cocktail && cocktail.strDrinkThumb }} style={{ width: 50, height: 50 }} />
+            <Text>{cocktail && cocktail.strInstructions}</Text>
+            <Text>{cocktail && cocktail.strAlcoholic}</Text>
+            <Text>{cocktail && cocktail.strCategory}</Text>
+            <Text>{cocktail && cocktail.strGlass}</Text>
+            <Text>{cocktail && cocktail.strIngredient1}</Text>
+            <Text>{cocktail && cocktail.strIngredient2}</Text>
+            <Text>{cocktail && cocktail.strIngredient3}</Text>
+            <Text>{cocktail && cocktail.strIngredient4}</Text>
+            <Text>{cocktail && cocktail.strIngredient5}</Text>
+            <Text>{cocktail && cocktail.strIngredient6}</Text>
+            <Text>{cocktail && cocktail.strIngredient7}</Text>
+            <Text>{cocktail && cocktail.strIngredient8}</Text>
+            <Text>{cocktail && cocktail.strIngredient9}</Text>
+            <Text>{cocktail && cocktail.strIngredient10}</Text>
+        </View>
+    );
+
+}
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+});
