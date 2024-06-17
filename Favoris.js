@@ -32,4 +32,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    image: {
+        width: 50,
+        height: 50,
+    },
+    text: {
+        fontSize: 16,
+        color: '#333',
+    },
 });
